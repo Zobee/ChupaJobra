@@ -97,15 +97,14 @@ router.route('/saveJob').post(auth, async (req,res) => {
     .then(user => {
         //Check to make sure job isn't already in list
         if(user.jobs.length > 0){
-            const jobOnList = user.jobs.every(job => job.id !== req.body.job.id)
+            const jobOnList = user.jobs.every(job => job._id !== req.body.job.id)
             if(!jobOnList) return res.status(400).json(`Job already saved.`)
         }
         //Add job to list
         user.jobs.push(
             {
-                id: req.body.job.id,
+                _id: req.body.job.id,
                 job: req.body.job,
-                applied: false
             }
         )
         user.save()
@@ -119,13 +118,10 @@ router.route('/saveJob').post(auth, async (req,res) => {
 router.route('/apply').post(auth, async (req,res) => {
     await User.findById(req.user._id)
     .then(user => {
-        const jobOnList = user.jobs.every(job => job.id !== req.body.job.id)
-        console.log(jobOnList);
+        const jobOnList = user.jobs.every(job => job._id !== req.body.job.id)
         if(jobOnList) return res.status(400).json(`This job isn't on your saved list.`)
-        let currJob = user.jobs.find(job => job.id === req.body.job.id)
-        console.log(currJob);
+        let currJob = user.jobs.find(job => job._id === req.body.job.id)
         currJob.applied = !currJob.applied //Reverse current status
-        console.log(user.jobs.find(job => job.id === req.body.job.id))
         user.save()
         .then(() => res.json("Application Status Updated"))
         .catch(err => res.status(400).json(`Error: ${err}`))
@@ -137,8 +133,10 @@ router.route('/apply').post(auth, async (req,res) => {
 router.route('/removeJob').post(auth, async (req,res) => {
     await User.findById(req.user._id)
     .then(user => {
+        const jobOnList = user.jobs.every(job => job._id !== req.body.job.id)
+        if(jobOnList) return res.status(400).json(`This job isn't on your saved list.`)
         user.jobs = user.jobs.filter(job => {
-            return job.id !== req.body.job.id
+            return job._id !== req.body.job.id
         })
         user.save()
         .then(() => res.json("Job Removed"))

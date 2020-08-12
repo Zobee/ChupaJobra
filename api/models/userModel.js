@@ -2,6 +2,22 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema;
 
+const jobSchema = new Schema({
+    _id: {
+        type: String,
+        required: true
+    },
+    job: {
+        type: Object,
+        required: true
+        },
+    applied: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
+})
+
 const userSchema = new Schema({
     username: {
         type: String,
@@ -20,10 +36,7 @@ const userSchema = new Schema({
         required: true,
         min: 6
     },
-    jobs: {
-        type: Array,
-        default: []
-    }
+    jobs: [jobSchema]
 }, {
     timestamps: true,
 })
