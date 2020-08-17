@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken')
 
-//Auth middleware
 const auth = (req,res,next) => {
     const token = req.header('auth-token')
-    if(!token) return res.status(401).json("Access Denied.")
+    if(!token) return res.status(401).json("Access Denied. BITCH")
 
     try{
         const valid = jwt.verify(token, process.env.SECRET_TOKEN)

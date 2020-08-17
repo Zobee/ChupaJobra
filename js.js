@@ -1,5 +1,3 @@
-const { job } = require("cron");
-
 const jerbs = [
     {
         id: "1",
@@ -10,17 +8,17 @@ const jerbs = [
         name: "Dishwasher"
     },
     {
+        id: "3",
+        name: "Master Steaker"
+    },
+    {
         id: '133242',
         name: "Scrote Inspector"
     }
 ]
 
-// const newJerbs = jerbs.filter(jerb => {
-//     return jerb.id != 2
-// })
+jerbs.findIndex(job => job.name.includes("Scrote")) //3
 
-let currJerb = jerbs.find(jerb => jerb.id === '1')
-currJerb.name = "Oregano Smeller"
-console.log(
-    jerbs
-);
+jerbs.find(job => job.id === '3') //{ id: '3', name: 'Master Steaker' }
+jerbs.find(job => job.dick === true) //undefined
+undefined === false //false

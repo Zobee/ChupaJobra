@@ -26,6 +26,14 @@ let validateLogin = (msg) => {
     return schema.validate(msg)
 }
 
+let validatePw = (msg) => {
+    let schema = Joi.object({
+        password: Joi.string().min(6).required()
+    })
+    return schema.validate(msg)
+}
+
 module.exports.validateSignup = validateSignup
 module.exports.validateLogin = validateLogin
 module.exports.validateUsername = validateUsername
+module.exports.validatePw = validatePw

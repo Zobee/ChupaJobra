@@ -54,6 +54,17 @@ router.route('/login').post(async (req,res) => {
 
 //PROTECTED USER ROUTES
 
+//Get User Info
+router.route('/').get(auth, (req,res) => {
+    User.findById(req.user._id)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.status(400).json(`Error ${err}`)
+    })
+})
+
 //Get User's Saved Jobs
 router.route('/myJobs').get(auth, (req,res) => {
     User.findById(req.user._id)
@@ -84,6 +95,26 @@ router.route('/changeUsername').post(auth, async (req,res) => {
     .catch(err => res.status(400).json(`Error ${err}`))
 })
 
+//Change Password
+router.route('/changePw').post(auth, async (req,res) => {
+    let {error} = validation.validatePw(req.body)
+    if(error) return res.status(400).json(error.details[0].message)
+
+    const validatePw = await bcrypt.compare(req.body.password, user.password)
+    if(!validatePw) return res.status(400).json("Password is invalid")
+
+    const salt = await bcrypt.genSalt(10)
+    const hashPw = await bcrypt.hash(req.body.password, salt)
+    User.findById(req.user._id)
+    .then(user => {
+        user.password = hashPw
+        user.save()
+        .then(() => res.json("Password successfully updated."))
+        .catch(err => res.status(400).json(err))
+    })
+    .catch(err => res.status(400).json(err))
+})
+
 //Delete Account
 router.route('/deleteAccount').delete(auth, (req,res) => {
     User.findByIdAndDelete(req.user._id)
@@ -108,7 +139,7 @@ router.route('/saveJob').post(auth, async (req,res) => {
             }
         )
         user.save()
-        .then(() => res.json("Job Added"))
+        .then(user => res.json(user))
         .catch(err => res.status(400).json(`Error: ${err}`))
     })
     .catch(err => res.status(400).json(`Error ${err}`))
@@ -123,7 +154,7 @@ router.route('/apply').post(auth, async (req,res) => {
         let currJob = user.jobs.find(job => job._id === req.body.job.id)
         currJob.applied = !currJob.applied //Reverse current status
         user.save()
-        .then(() => res.json("Application Status Updated"))
+        .then(user => res.json(user))
         .catch(err => res.status(400).json(`Error: ${err}`))
     })
     .catch(err => res.status(400).json(`Error: ${err}`))
@@ -139,7 +170,7 @@ router.route('/removeJob').post(auth, async (req,res) => {
             return job._id !== req.body.job.id
         })
         user.save()
-        .then(() => res.json("Job Removed"))
+        .then(user => res.json(user))
         .catch(err => res.status(400).json(`Error: ${err}`))
     })
     .catch(err => res.status(400).json(`Error ${err}`))
