@@ -16,7 +16,14 @@ const Login = () => {
 
     let handleSubmit = async (e) => {
         e.preventDefault()
-        const login = {
+        if(email === ""){
+            setErr("email field is empty!")
+            return;
+        } else if(password === ""){
+            setErr("password field is empty!")
+            return;
+        }
+        let login = {
             email,
             password
         }
@@ -26,60 +33,68 @@ const Login = () => {
             let token = res.data
             localStorage.setItem('auth-token', token)
         })
+        .then(() => {
+            axios.get("http://localhost:5000/user/", {
+                headers: {
+                    'auth-token': localStorage.getItem('auth-token')
+                }
+            }) 
+            .then(
+                res => setUser(res.data),
+                window.location = "/myJobs"
+            )
+            .catch(err => {
+                console.log(err.response.data);
+                //Find a way to match error with input field
+                //Probably a switch statement
+                let error = err.response.data.toLowerCase().replace(/['"]+/g, '');
+                setErr(error)
+            })
+        })
         .catch(err => {
             console.log(err.response.data);
             //Find a way to match error with input field
             //Probably a switch statement
-            let error = err.response.data.split(' ')[0].toLowerCase().replace(/['"]+/g, '');
+            let error = err.response.data.toLowerCase().replace(/['"]+/g, '');
+            console.log(error);
             setErr(error)
         })
 
-        await axios.get("http://localhost:5000/user/", {
-            headers: {
-                'auth-token': localStorage.getItem('auth-token')
-            }
-        }) 
-        .then(
-            res => setUser(res.data)
-        )
-        .catch(err => {
-            console.log(err.response.data);
-            //Find a way to match error with input field
-            //Probably a switch statement
-            let error = err.response.data.split(' ')[0].toLowerCase().replace(/['"]+/g, '');
-            setErr(error)
-        })
-        window.location = "/myJobs"
     }
     return (
         <div className='form-container body'>
         <h1 className='job-list-header'>Log In</h1>
         <div className='form'>
-            <form>
+            <h2>{err}.</h2>
+        <form>
+                <div>
                 <label>Email Address</label>
-                <input 
-                type="text"
-                required
-                className={err === "email" ? "form-err" : ""}
-                placeholder="Email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-                />
+                    <input 
+                    type="email"
+                    required
+                    className={err.includes("email") ? "form-err" : ""}
+                    placeholder="Email Address"
+                    id='email'
+                    name='email'
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
                 <label>Password</label>
-                <input
-                type="password"
-                required
-                className={err === "password" ? "form-err" : ""}
-                placeholder="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-                />
-                <button type='submit' onClick={(e)=>handleSubmit(e)}>Log in</button>
-            </form>
+                    <input
+                    type="password"
+                    required
+                    className={err.includes("password") ? "form-err" : ""}
+                    placeholder="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                    />
+                </div>
+                    <button type='submit' onClick={(e)=>handleSubmit(e)}>Sign Up</button>
+                </form>
         </div>
         <div>
             <p>Don't have an account yet? <Link to='signup'>Sign Up Here</Link></p>

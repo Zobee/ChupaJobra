@@ -6,14 +6,17 @@ import UserContext from './context/UserContext';
 
 const useStyles = makeStyles({
     headerText: {
-      letterSpacing: "0.5rem",
-      fontWeight: "500",
+      letterSpacing: "1rem",
+      fontWeight: "600",
       fontSize: "3rem",
-      alignSelf: "center"
+      alignSelf: "center",
+      color: "#FFF",
+      fontFamily: 'Pangolin, cursive'
     }
   });
 const Header = () => {
     const {user, setUser} = useContext(UserContext)
+
     const classes = useStyles();
 
     const signOut = () => {
@@ -24,20 +27,20 @@ const Header = () => {
         <div>
             <header className="header">
             <div className="brand">
-                <img src='#' />
+                <Link to='/'>
                 <Typography 
                 className={classes.headerText} 
                 variant='h1' 
                 href='/'>
                     CHUPAJOBRA
                 </Typography>
+                </Link>
             </div>
             <div className="header-links">
                 <Link to='/'>Jobs</Link>
                 {!user ? <Link to="/login">Sign In</Link> : <Link to="/myJobs">My Jobs</Link>}
                 {user && 
                     <span>
-                        <Link to="/settings">Settings</Link>
                         <Link to='/' onClick={signOut}>Sign Out</Link>
                     </span>
                 }

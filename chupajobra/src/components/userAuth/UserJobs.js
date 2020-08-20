@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react'
 import UserContext from '../context/UserContext'
+import {Link} from 'react-router-dom'
 
 import Job from '../jobs/Job'
 import JobModal from '../jobs/JobModal'
@@ -31,8 +32,9 @@ function UserJobs() {
                 })}
                 </div>
                 :
-                <div>
-                    Crickets.... Go Find Some JERBS
+                <div className='user-jobs-empty'>
+                    <h1>Nothing here yet...</h1>
+                    <Link className='user-jobs-link' to='/'>Start Searching For Jobs</Link>
                 </div>}
             </div> 
 

@@ -1,33 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Pangolin&family=Roboto&family=Poppins&display=swap");
 body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.job-list{
+  background: linear-gradient(90deg #fff, #CEC);
 }
 
 .job-list-header{
   margin: auto;
-  font-size: 4rem;
-  font-family: "poppins";
+  font-size: 5rem;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   padding: 1rem;
   font-weight: 600;
-  text-shadow: 1px 1px #CCC;
+  text-shadow: 1px 1px #333;
 }
 
 .job {
-  margin: 1rem;
+  margin: 1rem auto;
   padding: 0 1.5rem;
   border: solid 1px black;
-  box-shadow: 10px 5px 5px darkgray;
+  box-shadow: 10px 5px 5px #B28B5C;
   transition: all 0.2s ease;
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: url('/paperBG.jpg');
+  /*background: url('/paperBG.jpg');*/
+  background: linear-gradient(20deg, #dfccb3, #ebb87b);
   transition: all 0.5s ease;
+  font-family: 'Poppins', sans-serif;
+  width: 85vw;
+  position: relative;
 }
 
 .job:hover {
@@ -56,32 +64,43 @@ body{
   display: flex;
   font-size: 2rem;
   justify-content: space-evenly;
-  align-items: center;
-  padding: 2rem;
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
   border: solid 1px black;
 }
 
 .sort-form{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex: 1;
+  margin-bottom: 0;
 }
 
-
-.refresh-label{
-  margin-bottom: 1.2rem;
+.sort-label{
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
-.refresh-container{
+.sort-container{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
+  text-align: center;
+  margin: 0.2rem 1rem;
+}
+
+select, input{
+  font-size: 1.5rem;
+  margin-bottom: 0;
 }
 
 .btn{
   padding: 0.5rem;
   font-size: 2rem;
   margin-top: 1rem;
+  margin-bottom: 0;
   background-color: #545fc3;
   border: none;
   color: #FFF;
@@ -92,11 +111,32 @@ body{
   box-shadow: 2px 2px 4px #555;
 }
 
-.btn:hover{
+.btn:hover, .btn:focus{
   background-color: #27318d;
   transform: translateY(0);
   box-shadow: 1px 1px 2px #222;
 }
+
+.user-jobs-empty{
+  text-align: center;
+  font-size: 2rem;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 10rem;
+}
+.user-jobs-link {
+  color: white;
+  text-decoration: none;
+  border: solid 1px black;
+  padding: 1rem 2rem;
+  background-color: #545fc3;
+  transition: all 0.5s ease;
+  font-size: 2.7rem;
+}
+
+.user-jobs-link:hover { 
+  background-color: #27318d;
+}
+
 
 /*Header*/
 header{
@@ -122,11 +162,11 @@ header{
 }
 
 .header-links a:hover{
-  color: #f89232;
+  color: #f09952;
 }
 
 .header-links a:focus{
-  color: #f89232;
+  color: #f09952;
 }
 
 .brand{
@@ -135,6 +175,7 @@ header{
   font-size: 1.25em;
   color: inherit;
   text-decoration: none;
+  font-family: 'Pangolin', cursive;
 }
 
 .brand a{
@@ -200,6 +241,16 @@ header{
   flex: 1;
 }
 
+.modal-info-link{
+  text-decoration: none;
+  color: #25328a;
+  transition: all 0.25s ease;
+}
+
+.modal-info-link:hover, .modal-info-link:focus{
+  color: #060b2c
+}
+
 .apply:hover{
   background: linear-gradient(120deg, #2e8635, #0a440f);
   color: #FFF
@@ -221,11 +272,13 @@ header{
   position: absolute;
   color: #EEE;
   font-size: 4rem;
-  letter-spacing: 1rem;
+  letter-spacing: 0.5rem;
   right: 0;
   padding-right: 0.25rem;
-  transition: all 0.3s ease-in;
+  transition: all 0.2s ease-in;
   transform: translateY(-2rem);
+  font-family: 'Nunito', sans-serif;
+
 }
 
 .job:hover .active-text{
@@ -237,3 +290,129 @@ header{
 .job:hover .job-right{
   opacity: 0;
 }
+
+/*Settings*/
+.settings{
+  width: 90vw;
+  margin: auto;
+  text-align: center;
+}
+.settings-container{
+  display: flex;
+  flex-direction: column;
+  font-size: 2.5rem;
+  background-color: #0a440f;
+}
+
+.settings-well{
+  display: flex;
+  flex-direction: column;
+}
+
+/*Form Input*/
+.form-container{
+  width: 85%;
+  margin: 2rem auto;
+  text-align: center;
+  border: solid 1px black;
+  box-shadow: 2px 4px black;
+  padding: 1rem 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-container h1{
+  font-size: 3rem;
+  margin: 1.5rem auto;
+}
+
+.form-container div p{
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.form form div{
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem auto;
+}
+
+.form form div label{
+  text-align: left;
+  margin-left: 10%;
+  font-size: larger;
+}
+
+.form form p{
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: left;
+  margin-left: 10%;
+}
+
+input, select {
+  width: 80%;
+  padding: 0.8rem 1.3rem;
+  margin: 0.5rem auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button[type=submit] {
+  width: 80%;
+  background-color: #203040;
+  color: white;
+  padding: 14px 20px;
+  margin: 2rem 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background-color: #315150;
+}
+
+.form-err{
+  border: solid 2px red;
+}
+
+
+/*Fetch*/
+.job-fetch{
+  font-size: 2rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.fetch-msg-delay{
+  animation: fadeIn ease 10s;
+  -webkit-animation: fadeIn ease 10s;
+  -moz-animation: fadeIn ease 10s;
+  -o-animation: fadeIn ease 10s;
+  -ms-animation: fadeIn ease 10s;
+  }
+  @keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+  }

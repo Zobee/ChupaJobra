@@ -20,7 +20,7 @@ let validateSignup = (msg) => {
 
 let validateLogin = (msg) => {
     let schema = Joi.object({
-        email: Joi.string().email().required(),
+        email: Joi.string().min(5).email().required(),
         password: Joi.string().min(6).required()
     })
     return schema.validate(msg)
@@ -28,7 +28,8 @@ let validateLogin = (msg) => {
 
 let validatePw = (msg) => {
     let schema = Joi.object({
-        password: Joi.string().min(6).required()
+        oldPassword: Joi.string().min(6).required(),
+        newPassword: Joi.string().min(6).required()
     })
     return schema.validate(msg)
 }

@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
+import {Link} from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -6,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 import axios from 'axios'
 
 //Modal Buttons
@@ -135,6 +137,9 @@ const JobModal = ({job, open, handleClose}) => {
               <div dangerouslySetInnerHTML = {{__html : description }}></div>
             </DialogContentText>    
           </DialogContent>
+          {!user && <Alert severity="info">
+              <Link className='modal-info-link' to='/signup'>Sign Up</Link> or <Link className='modal-info-link' to='/login'>Log In</Link> to save jobs that you're interested in applying to later!
+            </Alert>}
           {modalButtons}
         </Dialog>
       </div>

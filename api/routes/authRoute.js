@@ -100,11 +100,11 @@ router.route('/changePw').post(auth, async (req,res) => {
     let {error} = validation.validatePw(req.body)
     if(error) return res.status(400).json(error.details[0].message)
 
-    const validatePw = await bcrypt.compare(req.body.password, user.password)
+    const validatePw = await bcrypt.compare(req.body.oldPassword, user.password)
     if(!validatePw) return res.status(400).json("Password is invalid")
 
     const salt = await bcrypt.genSalt(10)
-    const hashPw = await bcrypt.hash(req.body.password, salt)
+    const hashPw = await bcrypt.hash(req.body.newPassword, salt)
     User.findById(req.user._id)
     .then(user => {
         user.password = hashPw

@@ -21,13 +21,13 @@ function ModalBtnApplied({job, user, changeAppStatus, removeJob}) {
                 onClick={() => changeAppStatus(job)}
                 variant="contained" 
                 color="primary">
-                    Change Apply Status
+                    Change Application Status
             </Button>
             <Button 
                 onClick={() => window.open(job.url)}
                 variant="contained" 
                 className={classes.btnColor}>
-                    Go To Employer Site
+                    Go To Employer Website
             </Button>
             <Button 
             variant="contained" 

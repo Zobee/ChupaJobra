@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import UserContext from './components/context/UserContext'
 import JobContext from './components/context/JobContext'
@@ -9,7 +9,6 @@ import Header from './components/Header'
 import Login from './components/userAuth/Login'
 import SignUp from './components/userAuth/Signup';
 import UserJobs from './components/userAuth/UserJobs'
-import Settings from './components/userAuth/Settings'
 import axios from 'axios';
 
 function App() {
@@ -36,7 +35,6 @@ function App() {
     <Switch>
       <Route path='/login' component={Login}/>
       <Route path='/signup' component={SignUp}/>
-      <Route path='/settings' component={Settings}/>
       <JobContext.Provider value={{jobs, setJobs}}>
       <Route exact path='/' component={Jobs}/>
       <Route path='/myJobs' component={UserJobs}/>

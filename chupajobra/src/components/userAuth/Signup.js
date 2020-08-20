@@ -14,7 +14,7 @@ function SignUp() {
     
     if(user) window.location = '/'
 
-    let handleSubmit = (e) => {
+    let handleSubmit = async (e) => {
         e.preventDefault()
         let newUser = {
             username,
@@ -22,21 +22,20 @@ function SignUp() {
             password,
             confirmPw
         }
-        axios.post("http://localhost:5000/user/signup", newUser)
+        await axios.post("http://localhost:5000/user/signup", newUser)
         .then((res) => {
             console.log(res.data);
             window.location = '/login'
         })
         .catch(err => {
-            let error = err.response.data.split(' ')[0].toLowerCase().replace(/['"]+/g, '');
+            let error = err.response.data.toLowerCase().replace(/['"]+/g, '');
             setErr(error)
         })
-        window.location = '/'
     }
     return (
         <div className='form-container body'>
             <h1 className='job-list-header'>Sign Up</h1>
-            {err}
+            <h2>{err}</h2>
             <div className='form'>
             <form>
                 <div>
@@ -44,7 +43,7 @@ function SignUp() {
                     <input 
                     type="text"
                     required
-                    className={err === "username" ? "form-err" : ""}
+                    className={err.includes("username") ? "form-err" : ""}
                     placeholder="username"
                     id="username"
                     name="username"
@@ -57,7 +56,7 @@ function SignUp() {
                     <input 
                     type="email"
                     required
-                    className={err === "email" ? "form-err" : ""}
+                    className={err.includes("email") ? "form-err" : ""}
                     placeholder="Email Address"
                     id='email'
                     name='email'
@@ -70,7 +69,7 @@ function SignUp() {
                     <input
                     type="password"
                     required
-                    className={err === "password" ? "form-err" : ""}
+                    className={err.includes("password") ? "form-err" : ""}
                     placeholder="password"
                     id="password"
                     name="password"
@@ -83,7 +82,7 @@ function SignUp() {
                     <input
                     type="password"
                     required
-                    className={err === "confirmPw" ? "form-err" : ""}
+                    className={err.includes("confirmPw") ? "form-err" : ""}
                     placeholder="confirm password"
                     id="confirmPw"
                     name="confirmPw"
@@ -93,7 +92,6 @@ function SignUp() {
                 </div>
                     <button type='submit' onClick={(e)=>handleSubmit(e)}>Sign Up</button>
                 </form>
-                <h1>Sign Up With Facebook/Google/Pornhub</h1>
             </div>
             <div>
                 <p>Already have an account? <Link to='login'>Sign in</Link></p>

@@ -4,7 +4,7 @@ import UserContext from '../context/UserContext'
 function Job({job, openJob}) {
     const [appStatus, setAppStatus] = useState("")
     const {user} = useContext(UserContext)
-    const {title, company, location, company_logo, created_at, how_to_apply} = job
+    const {title, company, location, created_at} = job
     let formatDate = created_at.slice(0,10)
     useEffect(() => {
         if(user){
@@ -26,7 +26,7 @@ function Job({job, openJob}) {
 
     return (
         <div className={`job ${appStatus}`} onClick={() => openJob(job)}>
-            {appStatus && <div className='active-text'>{appStatus.toUpperCase()}</div>}
+            {appStatus && <div className={appStatus && "active-text"}>{appStatus.toUpperCase()}</div>}
             <div className='job-left'>
                 <p className='job-title'>{title}</p>
                 <p className='job-company'>{company}</p>
